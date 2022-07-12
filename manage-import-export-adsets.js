@@ -152,7 +152,7 @@ createMenuItem = (title, icon, callback) => {
   menuList.append(item);
 }
 appendMenuButtons = () => {
-  menuList = $('.page-header__actions ul');
+  menuList = $('[data-testid=page-header-container] ul');
   
   if (!menuList || menuList.length < 1) return;
   
