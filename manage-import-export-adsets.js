@@ -16,7 +16,7 @@ getTimeStamp= () => new Date().toLocaleString().replace(", ","_");
 
 getCurrentAdsetDetails = () => {
   var urlSegments = window.location.href.split("/");
-  if (urlSegments[2] !== 'manage.lemonpi.io') return false;
+  if (urlSegments[2] !== 'create.choreograph.com') return false;
   if (urlSegments[5] !== 'advertiser') return false;
   if (urlSegments[7] !== 'campaign') return false;
   if (urlSegments[9] !== 'adset') return false;
