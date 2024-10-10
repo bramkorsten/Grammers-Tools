@@ -45,11 +45,8 @@ getAuthToken = () => {
   //   console.warn('Could not get session details, are you logged in correctly?');
   //   return false;
   // }
-	var authToken = localStorage.getItem('auth');
-	if (!authToken || authToken === '') {
-		console.warn('Could not get auth token');
-	}
-  return authToken;
+	const token = JSON.parse(localStorage.getItem('session')).token;
+  return token;
 }
 getContentFile = async () => {
   return new Promise((resolve) => {
@@ -78,12 +75,12 @@ exportAdsetContent = () => {
     console.warn('failed to get adset details, are you on the correct page?');
     return;
   }
-  var url = `https://manage.lemonpi.io/api/v0/adsets-2/${adsetDetails.adset}/content-function?stage=draft`;
+  var url = `https://api.lemonpi.io/api/v0/adsets-2/${adsetDetails.adset}/content-function?stage=draft`;
   fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `${getAuthToken()}`,
+      'Authorization': `lemonpi ${getAuthToken()}`,
     },
   })
   .then(response => response.json())
@@ -123,7 +120,7 @@ importAdsetContent = async () => {
     var contentBody = {
       json: JSON.stringify(content),
     }
-    var url = `https://manage.lemonpi.io/api/v0/adsets-2/${adsetDetails.adset}/content-function?stage=draft`;
+    var url = `https://api.lemonpi.io/api/v0/adsets-2/${adsetDetails.adset}/content-function?stage=draft`;
     fetch(url, {
       method: 'PUT',
       headers: {
