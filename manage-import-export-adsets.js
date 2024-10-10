@@ -38,14 +38,18 @@ getCookie = (name) => {
     return null;
 }
 getAuthToken = () => {
-  var sessionCookie = getCookie('session');
-  if (sessionCookie) {
-    sessionCookie = JSON.parse(sessionCookie);
-  } else {
-    console.warn('Could not get session details, are you logged in correctly?');
-    return false;
-  }
-  return sessionCookie.token;
+  // var sessionCookie = getCookie('session');
+  // if (sessionCookie) {
+  //   sessionCookie = JSON.parse(sessionCookie);
+  // } else {
+  //   console.warn('Could not get session details, are you logged in correctly?');
+  //   return false;
+  // }
+	var authToken = localStorage.getItem('auth');
+	if (!authToken || authToken === '') {
+		console.warn('Could not get auth token');
+	}
+  return authToken;
 }
 getContentFile = async () => {
   return new Promise((resolve) => {
@@ -79,7 +83,7 @@ exportAdsetContent = () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `lemonpi ${getAuthToken()}`,
+      'Authorization': `${getAuthToken()}`,
     },
   })
   .then(response => response.json())
